@@ -2,33 +2,37 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 public class switcher : MonoBehaviour
 {bool mute;
       void Start () 
     {}
     public void GotoGameScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("load");
     }
      public void ContGameScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("SampleScene");
     }
      public void SetLevel (float sliderValue)
     {
-       
-       AudioListener.volume = Mathf.Log10(sliderValue)*20 ;
+        Time.timeScale = 1;
+        AudioListener.volume = Mathf.Log10(sliderValue)*20 ;
     }
    
   public void GotoOptionScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("options");
     }
 
     public void GotoMenuScene()
     {
-        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu 3D");
     }
 
     public void Quit()

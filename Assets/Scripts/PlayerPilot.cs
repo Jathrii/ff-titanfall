@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPilot : MonoBehaviour
 {
 
-    int healthPoints;
+    int healthPoints = 100;
     int titanMeterPoints;
     bool isTitanDeployed;
     public GameObject titan;
@@ -124,6 +124,13 @@ public class PlayerPilot : MonoBehaviour
     public void setTitanDeployed(bool isTitanDeployed)
     {
         this.isTitanDeployed = isTitanDeployed;
+    }
+
+    public void takeDamage(int damage)
+    {
+       
+        this.healthPoints = this.healthPoints - damage;
+        GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(this.healthPoints);
     }
 
 }

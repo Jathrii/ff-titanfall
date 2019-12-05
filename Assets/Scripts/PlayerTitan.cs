@@ -39,4 +39,31 @@ public class PlayerTitan : MonoBehaviour
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
         GameObject.Find("Players").transform.Find("PlayerTitan").gameObject.SetActive(false);
     }
+
+    public void increaseTitanMeter(int value)
+    {
+        titanMeterPoints += value;
+
+        if (titanMeterPoints >= 100)
+            titanMeterPoints = 100;
+
+        GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
+    }
+
+    public int getTitanMeter()
+    {
+        return titanMeterPoints;
+    }
+
+    public void setTitanMeter(int titanMeterPoints)
+    {
+        this.titanMeterPoints = titanMeterPoints;
+        GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
+    }
+
+    public void takeDamage(int damage)
+    {
+        healthPoints = healthPoints - damage;
+        GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
+    }
 }

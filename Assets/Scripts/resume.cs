@@ -11,22 +11,15 @@ public class resume : MonoBehaviour
      public Vector3 movement;
      float z=0f;
       public AudioSource[] sounds;
- public AudioSource noise1;
- public AudioSource noise2;
-  public AudioSource noise3;
-  public AudioSource noise4;
   GameObject[] player;
     // Start is called before the first frame update
     void Start()
     {
     //Time.timeScale = 1;
 	pauseObjects = GameObject.FindGameObjectsWithTag("pause");
-   player =GameObject.FindGameObjectsWithTag("player");
-   sounds= player[0].GetComponents<AudioSource>();;
-noise1 = sounds[0];
- noise2 = sounds[1];
- noise3 = sounds[2];
- noise4 = sounds[3];    }
+   //player =GameObject.FindGameObjectsWithTag("player");
+   //sounds= player[0].GetComponents<AudioSource>();;
+    }
 
     // Update is called once per frame
     void Update()
@@ -41,7 +34,7 @@ noise1 = sounds[0];
 			g.SetActive(false);
 		}
          Time.timeScale = 1;
-         noise3.Play();
+        // noise3.Play();
 	}
    private void OnCollisionExit(Collision collision){
       if(collision.gameObject.CompareTag("enemy")){

@@ -31,8 +31,6 @@ public class DashMove : MonoBehaviour
     void Update()
     {
 
-       Debug.Log(dashPoints);
-
         dashMove(); 
     }
 

@@ -3,17 +3,22 @@ using UnityEngine.UI;
 
 public class WeaponSwitching : MonoBehaviour
 {
-
-    public int selectedWeapon = 0;
+ 
+    public int selectedWeapon =0;
+    
     public Text weaponName;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+      
+       selectedWeapon= weapon_change.n;
+        Debug.Log(weapon_change.n);
         SelectWeapon();
     }
 
-    // Update is called once per frame
+    // Update is called
     void Update()
     {
 
@@ -77,12 +82,12 @@ public class WeaponSwitching : MonoBehaviour
         else if (selectedWeapon == 1)
         {
             weaponName.text = "Shotgun";
-            GameObject.Find("Shotgun").GetComponent<Gun>().UpdateAmmoText();
+           // GameObject.Find("Shotgun").GetComponent<Gun>().UpdateAmmoText();
         }
         else if (selectedWeapon == 2)
         {
             weaponName.text = "Sniper Rifle";
-            GameObject.Find("Sniper Rifle").GetComponent<Gun>().UpdateAmmoText();
+           // GameObject.Find("Sniper Rifle").GetComponent<Gun>().UpdateAmmoText();
         }
 
         else if (selectedWeapon == 3)
