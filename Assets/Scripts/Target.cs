@@ -1,14 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Target : MonoBehaviour
 {
     public float health = 50f;
 
+    private float startHealth;
+
+    public Image healthBar;
+
+    void Start()
+    {
+        startHealth = health;
+    }
+
     public void TakeDamage(float amount)
     {
         health -= amount;
+
+        healthBar.fillAmount = health / startHealth;
 
         if(health <= 0f)
         {
