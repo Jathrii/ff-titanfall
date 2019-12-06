@@ -260,5 +260,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             this.m_WalkSpeed = m_WalkSpeed;
         }
+
+        public Camera getm_Camera()
+        {
+            return m_Camera;
+        }
     }
 }

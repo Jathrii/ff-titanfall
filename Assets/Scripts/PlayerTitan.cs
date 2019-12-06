@@ -24,6 +24,18 @@ public class PlayerTitan : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) // Disembark Titan
             healthPoints = 0;
 
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if(titanMeterPoints >= 100)
+            {
+                StartCoroutine(enableAutoAim());
+                titanMeterPoints = 0;
+                GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
+            }
+
+        }
+
+
         if (healthPoints <= 0)
             onExitTitan();
     }
@@ -66,4 +78,27 @@ public class PlayerTitan : MonoBehaviour
         healthPoints = healthPoints - damage;
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
     }
+
+
+    public IEnumerator enableAutoAim(float countdownValue = 5)
+    {
+        float currCountdownValue = countdownValue;
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.Find("FirstPersonCharacter").Find("AutoAimTrigger").gameObject.SetActive(true);
+        while (currCountdownValue > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.Find("FirstPersonCharacter").Find("AutoAimTrigger").gameObject.SetActive(false);
+        resetCamera();
+    }
+
+    public void resetCamera()
+    {
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.position = GameObject.Find("PlayerTitan").transform.position;
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.rotation = GameObject.Find("PlayerTitan").transform.rotation;
+    }
+
+
 }

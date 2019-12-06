@@ -83,7 +83,7 @@ public class PlayerPilot : MonoBehaviour
     {
         if (titanMeterPoints >= 100 && !isTitanDeployed)
         {
-            titan.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 20);
+            titan.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z + 20);
             Instantiate(titan);
             GameObject.Find("Players").transform.Find("PlayerTitan").position = new Vector3(titan.transform.position.x, titan.transform.position.y, titan.transform.position.z);
             titanMeterPoints = 0;
@@ -112,7 +112,7 @@ public class PlayerPilot : MonoBehaviour
         Vector3 differenceVector = new Vector3(titanPosition.x - playerPosition.x, titanPosition.y - playerPosition.y, titanPosition.z - playerPosition.z);
         Debug.Log(differenceVector.z);
 
-        if (differenceVector.x < 3 && differenceVector.y < 3 && differenceVector.z < 3)
+        if (differenceVector.x < 3 && differenceVector.z < 3)
         {
 
             GameObject.Find("Players").transform.Find("PlayerTitan").gameObject.SetActive(true);

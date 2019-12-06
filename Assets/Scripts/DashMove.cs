@@ -20,6 +20,7 @@ public class DashMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dashPointsText.gameObject.SetActive(true);
         rb = GetComponent<Rigidbody>();
         dashTime = startDashTime;
         fpc = GetComponent<PlayerTitanFirstPersonController>();

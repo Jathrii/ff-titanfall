@@ -78,7 +78,7 @@ public class Gun : MonoBehaviour
     {
 
         isReloading = true;
-        Debug.Log("Reloading..");
+        //Debug.Log("Reloading..");
 
         animator.SetBool("Reloading", true);
 
@@ -110,7 +110,7 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
 
             if (hit.transform.CompareTag("Pilot"))
                 target = hit.transform.parent.GetComponent<Target>();
