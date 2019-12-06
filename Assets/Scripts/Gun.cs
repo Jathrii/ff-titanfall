@@ -24,11 +24,13 @@ public class Gun : MonoBehaviour
     public Animator animator;
 
     public Text weapon_ammo;
-    
+
+    Target target;
+
     // Start is called before the first frame update
     void Start()
     {
-            currentAmmo = maxAmmo;
+        currentAmmo = maxAmmo;
     }
 
     void OnEnable()
@@ -46,7 +48,7 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if(currentAmmo <= 0 || ((Input.GetKeyDown(KeyCode.R)) && currentAmmo<maxAmmo))
+        if (currentAmmo <= 0 || ((Input.GetKeyDown(KeyCode.R)) && currentAmmo < maxAmmo))
         {
             StartCoroutine(Reload());
             return;
@@ -106,18 +108,23 @@ public class Gun : MonoBehaviour
         UpdateAmmoText();
 
         RaycastHit hit;
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
 
-            Target target = hit.transform.GetComponent<Target>();
+            if (hit.transform.CompareTag("Pilot"))
+                target = hit.transform.parent.GetComponent<Target>();
+            else if (hit.transform.CompareTag("Titan"))
+                target = hit.transform.GetComponent<Target>();
+            else
+                return;
 
-            if(target != null)
+            if (target != null)
             {
                 target.TakeDamage(damage);
             }
 
-           // Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            // Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
         }
     }
 }

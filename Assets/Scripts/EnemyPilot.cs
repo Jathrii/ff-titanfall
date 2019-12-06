@@ -12,8 +12,8 @@ public class EnemyPilot : MonoBehaviour
     public int weaponDamage = 10;
     public int weaponRange = 100;
     public Transform[] points;
-    
-    
+
+
     private int destPoint = 0;
     private NavMeshAgent agent;
     private bool attack;
@@ -24,63 +24,72 @@ public class EnemyPilot : MonoBehaviour
     void Start()
     {
         rnd = new System.Random();
-        attack=false;
+        attack = false;
         agent = GetComponent<NavMeshAgent>();
         layerMask = 1 << 8;
         agent.autoBraking = false;
 
-            GotoNextPoint();
+        GotoNextPoint();
     }
 
     void FixedUpdate()
     {
-        
-        if(!attack){
-        if (!agent.pathPending && agent.remainingDistance < 0.5f){
-                GotoNextPoint();
-        }
-        Vector3 direction = PlayerPos.pos - transform.position;
-        Debug.DrawRay(transform.position, direction, Color.green, 10, false);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, rangeOfDetection, layerMask))
-        {
-            
-            
-            if(!attack){
-                GetComponent<NavMeshAgent>().isStopped = true;
-                InvokeRepeating("Attack", 0.0f, 3.0f);
-            }
-            
 
-            attack=!attack;
+        if (!attack)
+        {
+            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            {
+                GotoNextPoint();
+            }
+            Vector3 direction = PlayerPos.pos - transform.position;
+            Debug.DrawRay(transform.position, direction, Color.green, 10, false);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, direction, out hit, rangeOfDetection, layerMask))
+            {
+
+
+                if (!attack)
+                {
+                    GetComponent<NavMeshAgent>().isStopped = true;
+                    InvokeRepeating("Attack", 0.0f, 3.0f);
+                }
+
+
+                attack = !attack;
+            }
         }
-        }
-        else{
-            
-            if(Vector3.Distance(PlayerPos.pos,transform.position) > 10.0f){
-             GetComponent<NavMeshAgent>().isStopped = false;
-             agent.SetDestination(PlayerPos.pos);
-            
-             
-            }else{
+        else
+        {
+
+            if (Vector3.Distance(PlayerPos.pos, transform.position) > 10.0f)
+            {
+                GetComponent<NavMeshAgent>().isStopped = false;
+                agent.SetDestination(PlayerPos.pos);
+
+
+            }
+            else
+            {
                 GetComponent<NavMeshAgent>().isStopped = true;
+                transform.LookAt(PlayerPos.pos);
             }
 
             //Debug.Log("Attacking");
         }
     }
-     void GotoNextPoint() {
-            // Returns if no points have been set up
-            if (points.Length == 0)
-                return;
+    void GotoNextPoint()
+    {
+        // Returns if no points have been set up
+        if (points.Length == 0)
+            return;
 
-            // Set the agent to go to the currently selected destination.
-            agent.destination = points[destPoint].position;
+        // Set the agent to go to the currently selected destination.
+        agent.destination = points[destPoint].position;
 
-            // Choose the next point in the array as the destination,
-            // cycling to the start if necessary.
-            destPoint = (destPoint + 1) % points.Length;
-        }
+        // Choose the next point in the array as the destination,
+        // cycling to the start if necessary.
+        destPoint = (destPoint + 1) % points.Length;
+    }
     void Attack()
     {
         int num = rnd.Next(100);
@@ -97,7 +106,7 @@ public class EnemyPilot : MonoBehaviour
                 {
                     if (target.CompareTag("Player"))
                     {
-                            GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<PlayerPilot>().takeDamage(weaponDamage);
+                        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<PlayerPilot>().takeDamage(weaponDamage);
                     }
                 }
 
@@ -116,5 +125,5 @@ public class EnemyPilot : MonoBehaviour
                 Debug.Log("Missing :(");
         }
     }
-    
+
 }
