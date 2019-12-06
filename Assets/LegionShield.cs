@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LegionShield : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class LegionShield : MonoBehaviour
 
     bool isShieldActivated;
     bool useDefensiveAbility;
+    public Text cooldownText;
 
     // Start is called before the first frame update
     void Start()
     {
         isShieldActivated = false;
         useDefensiveAbility = true;
+        cooldownText.text = "Gun Shield\nReady for use";
     }
 
     // Update is called once per frame
@@ -37,6 +40,7 @@ public class LegionShield : MonoBehaviour
         useDefensiveAbility = false;
         isShieldActivated = true;
         legionShield.SetActive(true);
+        cooldownText.text = "Gun Shield\nActivated";
 
         while (currCountdown > 0)
         {
@@ -57,7 +61,10 @@ public class LegionShield : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             currCountdownValue--;
+            cooldownText.text = "Defensive Cooldown: " + currCountdownValue;
         }
+
+        cooldownText.text = "Gun Shield\nReady for use";
 
         useDefensiveAbility = true;
     }

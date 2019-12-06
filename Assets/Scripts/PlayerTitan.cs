@@ -7,6 +7,7 @@ public class PlayerTitan : MonoBehaviour
 {
     int healthPoints;
     int titanMeterPoints;
+    bool isCoreActivated;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class PlayerTitan : MonoBehaviour
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
         GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(true);
+        isCoreActivated = false;
     }
 
     // Update is called once per frame
@@ -54,7 +56,8 @@ public class PlayerTitan : MonoBehaviour
 
     public void increaseTitanMeter(int value)
     {
-        titanMeterPoints += value;
+        if(!isCoreActivated)
+            titanMeterPoints += value;
 
         if (titanMeterPoints >= 100)
             titanMeterPoints = 100;
@@ -80,10 +83,11 @@ public class PlayerTitan : MonoBehaviour
     }
 
 
-    public IEnumerator enableAutoAim(float countdownValue = 5)
+    public IEnumerator enableAutoAim(float countdownValue = 10)
     {
         float currCountdownValue = countdownValue;
         GameObject.Find("PlayerTitan").transform.Find("Titan").transform.Find("FirstPersonCharacter").Find("AutoAimTrigger").gameObject.SetActive(true);
+        isCoreActivated = true;
         while (currCountdownValue > 0)
         {
             yield return new WaitForSeconds(1.0f);
@@ -91,6 +95,7 @@ public class PlayerTitan : MonoBehaviour
         }
 
         GameObject.Find("PlayerTitan").transform.Find("Titan").transform.Find("FirstPersonCharacter").Find("AutoAimTrigger").gameObject.SetActive(false);
+        isCoreActivated = false;
         resetCamera();
     }
 

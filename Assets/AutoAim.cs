@@ -44,7 +44,7 @@ public class AutoAim : MonoBehaviour
         titan.transform.rotation = GameObject.Find("PlayerTitan").transform.rotation;
     }
 
-    public IEnumerator resetCamera(float countdownValue = 1.5f)
+    public IEnumerator resetCamera(float countdownValue = 2.5f)
     {
         float currCountdownValue = countdownValue;
         while (currCountdownValue > 0)
