@@ -5,8 +5,6 @@ public class WeaponSwitching : MonoBehaviour
 {
  
     public int selectedWeapon =0;
-    
-    public Text weaponName;
 
     // Start is called before the first frame update
     void Start()
@@ -74,30 +72,17 @@ public class WeaponSwitching : MonoBehaviour
             i++;
         }
 
-        if (selectedWeapon == 0)
-        {
-            weaponName.text = "Assault Rifle";
+        if (GameObject.Find("Assault Rifle") != null)
             GameObject.Find("Assault Rifle").GetComponent<Gun>().UpdateAmmoText();
-        }
-        else if (selectedWeapon == 1)
-        {
-            weaponName.text = "Shotgun";
-           // GameObject.Find("Shotgun").GetComponent<Gun>().UpdateAmmoText();
-        }
-        else if (selectedWeapon == 2)
-        {
-            weaponName.text = "Sniper Rifle";
-           // GameObject.Find("Sniper Rifle").GetComponent<Gun>().UpdateAmmoText();
-        }
 
-        else if (selectedWeapon == 3)
-        {
-            weaponName.text = "Grenade Launcher";
-            // GameObject.Find("Sniper Rifle").GetComponent<Gun>().UpdateAmmoText();
-        }
+        else if (GameObject.Find("Shotgun") != null)
+            GameObject.Find("Shotgun").GetComponent<Gun>().UpdateAmmoText();
 
-        else if (selectedWeapon == 4)
-            weaponName.text = "RPG";
+        else if (GameObject.Find("Sniper Rifle") != null)
+            GameObject.Find("Sniper Rifle").GetComponent<Gun>().UpdateAmmoText();
+
+        else
+            GameObject.Find("Weapon Ammo").GetComponent<Text>().text = "∞ / ∞";
 
     }
 }
