@@ -16,7 +16,7 @@ public class PlayerTitan : MonoBehaviour
         titanMeterPoints = 0;
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
-        GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(true);
+        //GameObject.Find("").transform.Find("DashPoints").gameObject.SetActive(true);
         isCoreActivated = false;
     }
 

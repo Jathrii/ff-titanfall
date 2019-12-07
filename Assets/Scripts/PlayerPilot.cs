@@ -22,7 +22,7 @@ public class PlayerPilot : MonoBehaviour
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
         GameObject.Find("Menus").transform.Find("PauseMenu").gameObject.SetActive(false);
         GameObject.Find("Menus").transform.Find("GameOver").gameObject.SetActive(false);
-        GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(false);
+        //GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(false);
 
         StartCoroutine(healthRegeneration());
     }
