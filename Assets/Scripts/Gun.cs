@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
 
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
-    // public GameObject impactEffect;
+    public GameObject impactEffect;
 
     public New_Weapon_Recoil_Script recoil;
 
@@ -120,7 +120,7 @@ public class Gun : MonoBehaviour
                 target = hit.transform.parent.GetComponent<Target>();
             else if (hit.transform.CompareTag("Titan"))
                 target = hit.transform.GetComponent<Target>();
-            else
+            else if (hit.transform.CompareTag("Player"))
                 return;
 
             if (target != null)
@@ -128,7 +128,8 @@ public class Gun : MonoBehaviour
                 target.TakeDamage(damage);
             }
 
-            // Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject GO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(GO, 0.1f);
         }
     }
 }

@@ -955,6 +955,7 @@ MonoBehaviour:
   reloadTime: 1
   fpsCam: {fileID: 233984512}
   muzzleFlash: {fileID: 527783368}
+  impactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
   recoil: {fileID: 351174321}
   animator: {fileID: 1433674012}
   weapon_ammo: {fileID: 1008120888}
@@ -1945,6 +1946,7 @@ MonoBehaviour:
   reloadTime: 1
   fpsCam: {fileID: 233984512}
   muzzleFlash: {fileID: 1737735667}
+  impactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
   recoil: {fileID: 930128985}
   animator: {fileID: 1433674012}
   weapon_ammo: {fileID: 1008120888}
@@ -3021,6 +3023,7 @@ MonoBehaviour:
   reloadTime: 1
   fpsCam: {fileID: 233984512}
   muzzleFlash: {fileID: 1774535859}
+  impactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
   recoil: {fileID: 1676637950}
   animator: {fileID: 1433674012}
   weapon_ammo: {fileID: 1008120888}
@@ -4422,6 +4425,11 @@ PrefabInstance:
       propertyPath: weapon_ammo
       value: 
       objectReference: {fileID: 1008120888}
+    - target: {fileID: 5075108882453820767, guid: 1428d56a105c41844937236bea1cbaeb,
+        type: 3}
+      propertyPath: impactEffect
+      value: 
+      objectReference: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
     - target: {fileID: 5075108881740744287, guid: 1428d56a105c41844937236bea1cbaeb,
         type: 3}
       propertyPath: RecoilPositionTranform
