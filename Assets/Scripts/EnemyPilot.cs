@@ -20,14 +20,21 @@ public class EnemyPilot : MonoBehaviour
     private int layerMask;
     private System.Random rnd;
     private Vector3 player;
+    private bool shouldStop;
+    private bool shouldWalk;
+    private Animator anim;
 
     void Start()
     {
+
         rnd = new System.Random();
         attack = false;
         agent = GetComponent<NavMeshAgent>();
         layerMask = 1 << 8;
         agent.autoBraking = false;
+        anim = gameObject.GetComponentInChildren(typeof(Animator)) as Animator;
+        Events.current.onStopMoving += stopMoving;
+        Events.current.onStartMoving += startMoving;
 
         GotoNextPoint();
     }
@@ -39,6 +46,8 @@ public class EnemyPilot : MonoBehaviour
         {
             if (!agent.pathPending && agent.remainingDistance < 0.5f)
             {
+                anim.SetTrigger("Idle");
+                
                 GotoNextPoint();
             }
             Vector3 direction = PlayerPos.pos - transform.position;
@@ -125,6 +134,19 @@ public class EnemyPilot : MonoBehaviour
             else
                 Debug.Log("Missing :(");
         }
+    }
+
+    void stopMoving()
+    {
+         GetComponent<NavMeshAgent>().isStopped = true;
+         
+         Debug.Log("Stopped------");
+    }
+     void startMoving()
+    {
+         GetComponent<NavMeshAgent>().isStopped = false;
+         anim.SetTrigger("Patrol");
+         Debug.Log("Started------");
     }
 
 }
