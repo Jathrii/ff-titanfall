@@ -60,8 +60,8 @@ public class LegionShield : MonoBehaviour
         while (currCountdownValue > 0)
         {
             yield return new WaitForSeconds(1.0f);
-            currCountdownValue--;
             cooldownText.text = "Defensive Cooldown: " + currCountdownValue;
+            currCountdownValue--;
         }
 
         cooldownText.text = "Gun Shield\nReady for use";

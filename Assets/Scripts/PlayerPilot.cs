@@ -23,6 +23,8 @@ public class PlayerPilot : MonoBehaviour
         GameObject.Find("Menus").transform.Find("PauseMenu").gameObject.SetActive(false);
         GameObject.Find("Menus").transform.Find("GameOver").gameObject.SetActive(false);
         GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(false);
+
+        StartCoroutine(healthRegeneration());
     }
 
 
@@ -116,7 +118,7 @@ public class PlayerPilot : MonoBehaviour
         {
 
             GameObject.Find("Players").transform.Find("PlayerTitan").gameObject.SetActive(true);
-            Destroy(GameObject.Find("Sphere(Clone)"));
+            Destroy(GameObject.Find(titan.name+"(Clone)"));
             GameObject.Find("PlayerPilot").SetActive(false);
         }
     }
@@ -131,6 +133,34 @@ public class PlayerPilot : MonoBehaviour
        
         this.healthPoints = this.healthPoints - damage;
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(this.healthPoints);
+    }
+
+    public IEnumerator healthRegeneration(float countdownValue = 3f)
+    {
+        float currCountdownValue = countdownValue;
+        float beginHealth = healthPoints;
+        while (currCountdownValue > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+
+        float endHealth = healthPoints;
+
+        if (beginHealth == endHealth)
+        {
+            healthPoints += 5;
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
+        }
+
+        if (healthPoints > 100)
+        {
+            healthPoints = 100;
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
+        }
+
+        StartCoroutine(healthRegeneration());
+
     }
 
 }

@@ -637,7 +637,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 1.730727e-39, w: 2.1301e-41}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3950,8 +3950,8 @@ Transform:
   m_LocalPosition: {x: 230.4, y: 6.18, z: 191.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1839943864}
   - {fileID: 1540433747}
+  - {fileID: 1839943864}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5295,6 +5295,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerTitan
       objectReference: {fileID: 0}
+    - target: {fileID: 5963351610675995878, guid: f1156db287edc6348a1f586b9b1a40ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5963351610676426950, guid: f1156db287edc6348a1f586b9b1a40ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5333,7 +5338,7 @@ PrefabInstance:
     - target: {fileID: 5963351610676426950, guid: f1156db287edc6348a1f586b9b1a40ce,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5963351610676426950, guid: f1156db287edc6348a1f586b9b1a40ce,
         type: 3}
@@ -5600,7 +5605,7 @@ PrefabInstance:
     - target: {fileID: 7924819717847329974, guid: 3e0b36270518e8e4caa0bd4fce6860ad,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7924819717847329974, guid: 3e0b36270518e8e4caa0bd4fce6860ad,
         type: 3}
