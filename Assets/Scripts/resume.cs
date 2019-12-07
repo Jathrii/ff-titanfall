@@ -34,6 +34,10 @@ public class resume : MonoBehaviour
 			g.SetActive(false);
 		}
          Time.timeScale = 1;
+          GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled=true;
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_MouseLook.SetCursorLock(true);
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_MouseLook.UpdateCursorLock();
+
         // noise3.Play();
 	}
    private void OnCollisionExit(Collision collision){

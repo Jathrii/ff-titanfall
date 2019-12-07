@@ -99,12 +99,22 @@ public class PlayerPilot : MonoBehaviour
     {
         GameObject.Find("Menus").transform.Find("PauseMenu").gameObject.SetActive(true);
         Time.timeScale = 0;
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled=false;
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_MouseLook.SetCursorLock(false);
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_MouseLook.UpdateCursorLock();
+
+
     }
 
     public void hidePaused()
     {
         GameObject.Find("Menus").transform.Find("PauseMenu").gameObject.SetActive(false);
         Time.timeScale = 1;
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled=true;
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_MouseLook.SetCursorLock(true);
+        GameObject.Find("Players").transform.Find("PlayerPilot").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().m_MouseLook.UpdateCursorLock();
+
+
     }
 
     public void enterTitan()
