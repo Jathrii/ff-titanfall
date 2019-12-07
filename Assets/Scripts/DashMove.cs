@@ -128,4 +128,9 @@ public class DashMove : MonoBehaviour
         }
 
     }
+
+    public bool isDash()
+    {
+        return isDashing;
+    }
 }

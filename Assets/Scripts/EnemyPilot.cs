@@ -116,7 +116,7 @@ public class EnemyPilot : MonoBehaviour
                 {
                     if (target2.CompareTag("Player"))
                     {
-                        if(!GameObject.Find("Legion").GetComponent<LegionShield>().isShieldActivate())
+                        if(!GameObject.Find("Legion").GetComponent<LegionShield>().isShieldActivate() || !GameObject.Find("PlayerTitan").GetComponent<DashMove>().isDash())
                             GameObject.Find("Players").transform.Find("PlayerTitan").GetComponent<PlayerTitan>().takeDamage(weaponDamage);
                     }
                 }
