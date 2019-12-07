@@ -1945,7 +1945,7 @@ MonoBehaviour:
   reloadTime: 1
   fpsCam: {fileID: 233984512}
   muzzleFlash: {fileID: 1737735667}
-  recoil: {fileID: 0}
+  recoil: {fileID: 930128985}
   animator: {fileID: 1433674012}
   weapon_ammo: {fileID: 1008120888}
 --- !u!4 &930128984 stripped
