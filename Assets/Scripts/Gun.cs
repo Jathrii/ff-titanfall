@@ -18,7 +18,9 @@ public class Gun : MonoBehaviour
 
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
-    // public GameObject impactEffect;
+    public GameObject impactEffect;
+
+    public New_Weapon_Recoil_Script recoil;
 
     private float nextTimeToFire = 0f;
     public Animator animator;
@@ -59,6 +61,7 @@ public class Gun : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + (1f / fireRate);
+                recoil.Fire();
                 Shoot();
             }
         }
@@ -68,6 +71,7 @@ public class Gun : MonoBehaviour
             if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + (1f / fireRate);
+                recoil.Fire();
                 Shoot();
             }
         }
@@ -78,7 +82,7 @@ public class Gun : MonoBehaviour
     {
 
         isReloading = true;
-        Debug.Log("Reloading..");
+        //Debug.Log("Reloading..");
 
         animator.SetBool("Reloading", true);
 
@@ -110,13 +114,13 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
 
             if (hit.transform.CompareTag("Pilot"))
                 target = hit.transform.parent.GetComponent<Target>();
             else if (hit.transform.CompareTag("Titan"))
                 target = hit.transform.GetComponent<Target>();
-            else
+            else if (hit.transform.CompareTag("Player"))
                 return;
 
             if (target != null)
@@ -124,7 +128,8 @@ public class Gun : MonoBehaviour
                 target.TakeDamage(damage);
             }
 
-            // Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject GO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(GO, 0.1f);
         }
     }
 }

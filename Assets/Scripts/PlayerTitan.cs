@@ -7,6 +7,7 @@ public class PlayerTitan : MonoBehaviour
 {
     int healthPoints;
     int titanMeterPoints;
+    bool isCoreActivated;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +16,8 @@ public class PlayerTitan : MonoBehaviour
         titanMeterPoints = 0;
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
-        GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(true);
+        //GameObject.Find("").transform.Find("DashPoints").gameObject.SetActive(true);
+        isCoreActivated = false;
     }
 
     // Update is called once per frame
@@ -23,6 +25,18 @@ public class PlayerTitan : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) // Disembark Titan
             healthPoints = 0;
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if(titanMeterPoints >= 100)
+            {
+                StartCoroutine(enableAutoAim());
+                titanMeterPoints = 0;
+                GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
+            }
+
+        }
+
 
         if (healthPoints <= 0)
             onExitTitan();
@@ -42,7 +56,8 @@ public class PlayerTitan : MonoBehaviour
 
     public void increaseTitanMeter(int value)
     {
-        titanMeterPoints += value;
+        if(!isCoreActivated)
+            titanMeterPoints += value;
 
         if (titanMeterPoints >= 100)
             titanMeterPoints = 100;
@@ -66,4 +81,29 @@ public class PlayerTitan : MonoBehaviour
         healthPoints = healthPoints - damage;
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
     }
+
+
+    public IEnumerator enableAutoAim(float countdownValue = 10)
+    {
+        float currCountdownValue = countdownValue;
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.Find("FirstPersonCharacter").Find("AutoAimTrigger").gameObject.SetActive(true);
+        isCoreActivated = true;
+        while (currCountdownValue > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.Find("FirstPersonCharacter").Find("AutoAimTrigger").gameObject.SetActive(false);
+        isCoreActivated = false;
+        resetCamera();
+    }
+
+    public void resetCamera()
+    {
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.position = GameObject.Find("PlayerTitan").transform.position;
+        GameObject.Find("PlayerTitan").transform.Find("Titan").transform.rotation = GameObject.Find("PlayerTitan").transform.rotation;
+    }
+
+
 }

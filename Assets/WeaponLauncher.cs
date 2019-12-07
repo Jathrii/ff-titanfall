@@ -36,7 +36,7 @@ public class WeaponLauncher : MonoBehaviour
     void Explode()
     {
 
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        GameObject GO = Instantiate(explosionEffect, transform.position, transform.rotation);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
@@ -59,7 +59,8 @@ public class WeaponLauncher : MonoBehaviour
                 }
             }
         }
-       
+
+        Destroy(GO, 5f);
         Destroy(gameObject);
     }
 

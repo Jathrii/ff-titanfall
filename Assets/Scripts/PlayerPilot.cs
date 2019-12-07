@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPilot : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class PlayerPilot : MonoBehaviour
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
         GameObject.Find("Menus").transform.Find("PauseMenu").gameObject.SetActive(false);
         GameObject.Find("Menus").transform.Find("GameOver").gameObject.SetActive(false);
-        GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(false);
+
+        StartCoroutine(healthRegeneration());
     }
 
 
@@ -36,8 +38,8 @@ public class PlayerPilot : MonoBehaviour
 
         if (healthPoints <= 0)
         {
-            GameObject.Find("Menus").transform.Find("GameOver").gameObject.SetActive(true);
-            Time.timeScale = 0;
+            GameObject.Find("Players").transform.Find("PlayerPilot").gameObject.SetActive(false);
+            SceneManager.LoadScene("GameOver");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -83,7 +85,7 @@ public class PlayerPilot : MonoBehaviour
     {
         if (titanMeterPoints >= 100 && !isTitanDeployed)
         {
-            titan.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 20);
+            titan.transform.position = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z + 20);
             Instantiate(titan);
             GameObject.Find("Players").transform.Find("PlayerTitan").position = new Vector3(titan.transform.position.x, titan.transform.position.y, titan.transform.position.z);
             titanMeterPoints = 0;
@@ -112,11 +114,11 @@ public class PlayerPilot : MonoBehaviour
         Vector3 differenceVector = new Vector3(titanPosition.x - playerPosition.x, titanPosition.y - playerPosition.y, titanPosition.z - playerPosition.z);
         Debug.Log(differenceVector.z);
 
-        if (differenceVector.x < 3 && differenceVector.y < 3 && differenceVector.z < 3)
+        if (differenceVector.x < 3 && differenceVector.z < 3)
         {
 
             GameObject.Find("Players").transform.Find("PlayerTitan").gameObject.SetActive(true);
-            Destroy(GameObject.Find("Sphere(Clone)"));
+            Destroy(GameObject.Find(titan.name+"(Clone)"));
             GameObject.Find("PlayerPilot").SetActive(false);
         }
     }
@@ -131,6 +133,34 @@ public class PlayerPilot : MonoBehaviour
        
         this.healthPoints = this.healthPoints - damage;
         GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(this.healthPoints);
+    }
+
+    public IEnumerator healthRegeneration(float countdownValue = 3f)
+    {
+        float currCountdownValue = countdownValue;
+        float beginHealth = healthPoints;
+        while (currCountdownValue > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
+
+        float endHealth = healthPoints;
+
+        if (beginHealth == endHealth)
+        {
+            healthPoints += 5;
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
+        }
+
+        if (healthPoints > 100)
+        {
+            healthPoints = 100;
+            GameObject.Find("HealthBar").GetComponent<HealthBar>().SetHealth(healthPoints);
+        }
+
+        StartCoroutine(healthRegeneration());
+
     }
 
 }
