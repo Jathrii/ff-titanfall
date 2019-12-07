@@ -11,8 +11,8 @@ public class WeaponSwitching : MonoBehaviour
     {
         
       
-       selectedWeapon= weapon_change.n;
-        Debug.Log(weapon_change.n);
+       //selectedWeapon= weapon_change.n;
+       // Debug.Log(weapon_change.n);
         SelectWeapon();
     }
 
