@@ -32,6 +32,8 @@ public class Target : MonoBehaviour
     {
         if (gameObject.CompareTag("Pilot"))
         {
+           
+
             if(GameObject.Find("PlayerPilot") != null)
                 GameObject.Find("PlayerPilot").GetComponent<PlayerPilot>().increaseTitanMeter(10);
             else
@@ -39,11 +41,18 @@ public class Target : MonoBehaviour
         }
         else if (gameObject.CompareTag("Titan"))
         {
+            
+
             if (GameObject.Find("PlayerPilot") != null)
                 GameObject.Find("PlayerPilot").GetComponent<PlayerPilot>().increaseTitanMeter(50);
             else
                 GameObject.Find("PlayerTitan").GetComponent<PlayerTitan>().increaseTitanMeter(50);
         }
-        Destroy(gameObject);
+
+        if (gameObject.transform.parent != null)
+            Destroy(gameObject.transform.parent.gameObject);
+        else
+            Destroy(gameObject);
+
     }
 }
