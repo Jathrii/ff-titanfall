@@ -6,6 +6,7 @@ public class GrenadeThrower : MonoBehaviour
 {
     public float throwForce = 40f;
     public GameObject grenadePrefab;
+    public New_Weapon_Recoil_Script recoil;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class GrenadeThrower : MonoBehaviour
             if (GameObject.Find("Explosion(Clone)") != null)
                 Destroy(GameObject.Find("Explosion(Clone)"));
 
+            recoil.Fire();
             ThrowGrenade();
         }   
     }

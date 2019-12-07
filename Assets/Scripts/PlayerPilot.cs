@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPilot : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class PlayerPilot : MonoBehaviour
         GameObject.Find("TitanMeter").GetComponent<TitanMeter>().SetTitanMeter(titanMeterPoints);
         GameObject.Find("Menus").transform.Find("PauseMenu").gameObject.SetActive(false);
         GameObject.Find("Menus").transform.Find("GameOver").gameObject.SetActive(false);
-        //GameObject.Find("HUD").transform.Find("DashPoints").gameObject.SetActive(false);
 
         StartCoroutine(healthRegeneration());
     }
@@ -38,8 +38,8 @@ public class PlayerPilot : MonoBehaviour
 
         if (healthPoints <= 0)
         {
-            GameObject.Find("Menus").transform.Find("GameOver").gameObject.SetActive(true);
-            Time.timeScale = 0;
+            GameObject.Find("Players").transform.Find("PlayerPilot").gameObject.SetActive(false);
+            SceneManager.LoadScene("GameOver");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

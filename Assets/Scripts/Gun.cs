@@ -20,6 +20,8 @@ public class Gun : MonoBehaviour
     public ParticleSystem muzzleFlash;
     // public GameObject impactEffect;
 
+    public New_Weapon_Recoil_Script recoil;
+
     private float nextTimeToFire = 0f;
     public Animator animator;
 
@@ -59,6 +61,7 @@ public class Gun : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + (1f / fireRate);
+                recoil.Fire();
                 Shoot();
             }
         }
@@ -68,6 +71,7 @@ public class Gun : MonoBehaviour
             if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + (1f / fireRate);
+                recoil.Fire();
                 Shoot();
             }
         }
