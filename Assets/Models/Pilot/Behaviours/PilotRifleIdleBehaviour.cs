@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PilotRifleIdleBehaviour : StateMachineBehaviour
 {
+    EnemyPilot script;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-         Events.current.StopMoving();
-        
-       Debug.Log("Invoked");
+        script = animator.gameObject.GetComponentInParent(typeof(EnemyPilot)) as EnemyPilot;
+        script.stopMoving();
+        Debug.Log("Invoked");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -21,9 +23,8 @@ public class PilotRifleIdleBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       Events.current.StartMoving();
-       
-       Debug.Log("Invoked");
+        script.startMoving();
+        Debug.Log("Invoked");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

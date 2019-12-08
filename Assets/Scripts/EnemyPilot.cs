@@ -20,8 +20,6 @@ public class EnemyPilot : MonoBehaviour
     private int layerMask;
     private System.Random rnd;
     private Vector3 player;
-    private bool shouldStop;
-    private bool shouldWalk;
     private Animator anim;
 
     void Start()
@@ -33,8 +31,6 @@ public class EnemyPilot : MonoBehaviour
         layerMask = 1 << 8;
         agent.autoBraking = false;
         anim = gameObject.GetComponentInChildren(typeof(Animator)) as Animator;
-        Events.current.onStopMoving += stopMoving;
-        Events.current.onStartMoving += startMoving;
 
         GotoNextPoint();
     }
@@ -47,7 +43,7 @@ public class EnemyPilot : MonoBehaviour
             if (!agent.pathPending && agent.remainingDistance < 0.5f)
             {
                 anim.SetTrigger("Idle");
-                
+
                 GotoNextPoint();
             }
             Vector3 direction = PlayerPos.pos - transform.position;
@@ -125,7 +121,7 @@ public class EnemyPilot : MonoBehaviour
                 {
                     if (target2.CompareTag("Player"))
                     {
-                        if(!GameObject.Find("Legion").GetComponent<LegionShield>().isShieldActivate() || !GameObject.Find("PlayerTitan").GetComponent<DashMove>().isDash())
+                        if (!GameObject.Find("Legion").GetComponent<LegionShield>().isShieldActivate() || !GameObject.Find("PlayerTitan").GetComponent<DashMove>().isDash())
                             GameObject.Find("Players").transform.Find("PlayerTitan").GetComponent<PlayerTitan>().takeDamage(weaponDamage);
                     }
                 }
@@ -136,17 +132,18 @@ public class EnemyPilot : MonoBehaviour
         }
     }
 
-    void stopMoving()
+    public void stopMoving()
     {
-         GetComponent<NavMeshAgent>().isStopped = true;
-         
-         Debug.Log("Stopped------");
+        GetComponent<NavMeshAgent>().isStopped = true;
+
+        Debug.Log("Stopped------");
     }
-     void startMoving()
+    public void startMoving()
     {
-         GetComponent<NavMeshAgent>().isStopped = false;
-         anim.SetTrigger("Patrol");
-         Debug.Log("Started------");
+        GetComponent<NavMeshAgent>().isStopped = false;
+        anim.SetTrigger("Patrol");
+        Debug.Log("Started------");
     }
+
 
 }
