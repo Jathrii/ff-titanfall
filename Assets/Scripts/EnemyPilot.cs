@@ -38,13 +38,21 @@ public class EnemyPilot : MonoBehaviour
     void FixedUpdate()
     {
 
+
         if (!attack)
         {
+            Debug.Log("Current Target: " + agent.destination);
+
             if (!agent.pathPending && agent.remainingDistance < 0.5f)
             {
+                // Debug.Log("Idled and not attcking");
                 anim.SetTrigger("Idle");
 
                 GotoNextPoint();
+            }
+            else
+            {
+                //Debug.Log("Patroling and not attcking") 
             }
             Vector3 direction = PlayerPos.pos - transform.position;
             Debug.DrawRay(transform.position, direction, Color.green, 10, false);
@@ -53,29 +61,39 @@ public class EnemyPilot : MonoBehaviour
             {
 
 
-                if (!attack)
-                {
+
+                
                     GetComponent<NavMeshAgent>().isStopped = true;
+                    //anim.StopPlayback();
+                    // Debug.Log("Patroling and attacking");
+                    anim.SetBool("Attacking", true);
                     InvokeRepeating("Attack", 0.0f, 3.0f);
-                }
+
+                
 
 
-                attack = !attack;
+
+                attack = true;
             }
         }
         else
         {
 
+
+
+
             if (Vector3.Distance(PlayerPos.pos, transform.position) > 10.0f)
             {
                 GetComponent<NavMeshAgent>().isStopped = false;
                 agent.SetDestination(PlayerPos.pos);
+                anim.SetTrigger("Patrol");
 
 
             }
             else
             {
                 GetComponent<NavMeshAgent>().isStopped = true;
+                anim.SetTrigger("Idle");
                 transform.LookAt(PlayerPos.pos);
             }
 
@@ -98,12 +116,14 @@ public class EnemyPilot : MonoBehaviour
     void Attack()
     {
         int num = rnd.Next(100);
-        //Debug.Log("You roll "+num);
+
         RaycastHit hit;
         if (num < accuracyPercentage)
         {
             if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange))
             {
+                anim.StopPlayback();
+                anim.SetTrigger("Fire");
                 Debug.Log("Attacking");
 
                 PlayerPilot target = hit.transform.GetComponent<PlayerPilot>();
@@ -136,13 +156,15 @@ public class EnemyPilot : MonoBehaviour
     {
         GetComponent<NavMeshAgent>().isStopped = true;
 
-        Debug.Log("Stopped------");
+       //  anim.SetTrigger("Idle");
+
     }
     public void startMoving()
     {
         GetComponent<NavMeshAgent>().isStopped = false;
+        Debug.Log("back to moving");
         anim.SetTrigger("Patrol");
-        Debug.Log("Started------");
+
     }
 
 

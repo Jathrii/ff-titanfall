@@ -12,6 +12,7 @@ public class PilotRifleIdleBehaviour : StateMachineBehaviour
         script = animator.gameObject.GetComponentInParent(typeof(EnemyPilot)) as EnemyPilot;
         script.stopMoving();
         Debug.Log("Invoked");
+        Debug.Log("animation started");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -25,6 +26,7 @@ public class PilotRifleIdleBehaviour : StateMachineBehaviour
     {
         script.startMoving();
         Debug.Log("Invoked");
+        Debug.Log("animation ended");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
